@@ -1,0 +1,193 @@
+#define square(x) ((x)*(x))
+int main(void)
+{
+        printf("%d\n",square(4));
+        int x=3;
+        printf("%d\n",square(++x));
+}
+
+---------------------------------------------------
+What is the issue and how to fix it?
+int *ptr = NULL;
+*ptr = 10;
+
+---------------------------------------------------
+ 
+What is this?
+int (*mv) (int,int)
+---------------------------------------------------
+size of structure?
+struct {
+    char a;   // 1 byte
+    int b;    // 4 bytes
+};
+---------------------------------------------------
+What is the difference?
+1. char a[] = "Hello";
+2. char *p  = "Hello";
+---------------------------------------------------
+What is the output?
+char *s1 = "Hello, ";
+char *s2 = "world!";
+char *s3 = strcat(s1, s2);
+---------------------------------------------------
+Explain below declarations: 
+1. const char *p ;
+2. char const *p ;
+3. char * const p ;
+---------------------------------------------------
+Explain Difference and which one is safe?
+1. const int MAXSIZE = 100;
+2. #define MAXSIZE 100;
+---------------------------------------------------
+What is the output?
+int i = 10; int j = i++ + ++i;
+---------------------------------------------------
+What is the output?
+unsigned char half_limit = 150;
+for (unsigned char i = 0; i < 2 * half_limit; ++i)
+{
+     printf("Hello");
+}
+---------------------------------------------------
+What is the difference?
+1. char a[] = "Hello";
+2. char *p  = "Hello";
+---------------------------------------------------
+Guess the output:
+-1 >>> 1 ?
+---------------------------------------------------
+int main() {
+ 
+	char* my_data;
+	check_data(my_data);
+ 
+	print("%s", my_data);
+	return 1;
+}
+ 
+void check_data(char* str) {
+	str = "Hello";
+}
+---------------------------------------------------
+//Guess the issues
+static int count;
+
+void irq_handler(void)
+{
+    count++;
+}
+---------------------------------------------------
+i = 1;
+int x = i++ + ++i;
+x= ?
+---------------------------------------------------
+char *get_name(void)
+{
+    char buf[32];
+    return buf;
+}
+
+---------------------------------------------------
+What is the issue?
+
+uint8_t rx_buf[1024];
+
+void dma_read(void)
+{
+    start_dma(rx_buf, sizeof(rx_buf));
+    process_data(rx_buf);
+}
+---------------------------------------------------
+static int irq_count;
+
+void irq_handler(void)
+{
+    irq_count++;
+}
+
+void print_count(void)
+{
+    printf("%d\n", irq_count);
+}
+---------------------------------------------------
+spinlock_t lock;
+
+void process(void)
+{
+    spin_lock(&lock);
+    // critical section
+    spin_unlock(&lock);
+}
+
+void irq_handler(void)
+{
+    spin_lock(&lock);
+    // ...
+    spin_unlock(&lock);
+}
+---------------------------------------------------
+char *get_name(void)
+{
+    char buf[32];
+    strcpy(buf, "device0");
+    return buf;
+}
+---------------------------------------------------
+int main(void)
+{
+    char *ptr = "Linux";
+    printf("\n [%c] \n",*ptr++);
+    printf("\n [%c] \n",*ptr);
+    return 0;
+
+}
+---------------------------------------------------
+#include <stdio.h>
+  #define MULTIPLY(a, b) a*b
+  int main()
+  {
+    printf("%d", MULTIPLY(2+3, 3+5));
+    return 0;
+  }
+---------------------------------------------------
+struct test {
+   int8_t x1;
+   int8_t x4;
+   int16_t x2;
+   int32_t x3;
+} 
+Sizeof structure?
+---------------------------------------------------
+Explain the different declarations and its effects:
+•
+const int var
+•
+int * var
+•
+int const * var
+•
+int * const var
+•
+int const * const var
+---------------------------------------------------
+#include <stdio.h>
+int main()
+{
+int x = 3;//0011
+int y = 7;//0111
+printf("Output 1 = %d\n", x && y);
+printf("Output 2 = %d\n", x & y);
+return 0;
+}
+---------------------------------------------------
+#include <stdio.h>
+int main()
+{
+int x = 3;//0011
+int y = 7;//0111
+printf("Output 1 = %d\n", x || y);
+printf("Output 2 = %d\n", x | y);
+return 0;
+}
+---------------------------------------------------
