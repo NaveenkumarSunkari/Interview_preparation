@@ -1,0 +1,567 @@
+
+-------------------------------------------------------------------------
+//Declare a function pointer for a function that takes two functions pointers as arguments and returns an integer.
+
+int (*func)(int (*f1)(), int (*f2)());
+
+-------------------------------------------------------------------------
+//Write a program to find size of variable without using sizeof operator?
+#include<stdio.h>
+#define SIZEOF(data) ((char*)(&data+1)-(char*)(&data))
+//#define SIZEOF(data) ((&data+1)-(&data)) -> BUG //Subtracting two pointers gives a result in units of the pointed type, not bytes.
+int main(void)
+{
+    int data;
+    //char data;
+
+    printf("Size is:%ld\n",SIZEOF(data));
+    return 0;
+}
+-------------------------------------------------------------------------
+
+Number of set bits in an int?
+#include<stdio.h>
+#include<stdlib.h>
+int main(int argc, char **argv)
+{
+    if(argc<2)
+    {
+        printf("Usage: %s <integer>\n",argv[0]);
+        return EXIT_FAILURE;
+    }
+    int data=atoi(argv[1]);
+    int count=0;
+    printf("Input is %d\n",data);
+
+    for(int i=0 ; i<8*sizeof(int); i++)
+    {
+        if((data >> i) &1)
+        count++;
+    }
+
+    printf("Num of set bits are:%d\n",count);
+    return EXIT_SUCCESS;
+}
+
+-------------------------------------------------------------------------
+Reverse a string:
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define M2
+
+char *strrev(char *s)
+{
+    int i=0,len=strlen(s)-1;
+    char temp;
+    while(i<len)
+    {
+        temp=s[i];
+        s[i]=s[len];
+        s[len]=temp;
+        i++;
+        len--;
+    }
+    return s;
+}
+
+
+int main(void)
+{
+    
+
+// Case1: For strings without spaces, predefined str size
+    #ifdef M1
+    printf("Enter a string\n");    
+    char str[10];
+    scanf("%s",str);
+    #endif
+
+    #ifdef M2
+    int size;
+    printf("Enter the size of string\n");
+    scanf("%d",&size);
+    getchar();
+    char str[size];
+    printf("Enter a string(spaces allowed)\n");
+    if(fgets(str,size,stdin) !=NULL);
+    str[size]='\0';
+    #endif
+
+
+    printf("Input is :%s\n",str);
+    printf("Reversed string is:%s\n",strrev(str));
+    return EXIT_SUCCESS;
+}
+-------------------------------------------------------------------------
+//swap adjacent bits
+//0x55 -> 0xAA
+//0x01 -> 0x02
+
+int main(void)
+{
+    int data;
+    printf("Enter data\n");
+    scanf("%d",&data);
+
+    int mask=(((data&0xAAAAAAAA)>>1) | ((data&0x55555555)<<1));
+
+    printf("Output:[%x],[%d]\n",mask,mask);
+}
+-------------------------------------------------------------------------
+Push zeros at the end in an array:
+
+void push_zeros_at_end(int arr[],int size)
+{
+    int pos=0,i;
+    for(i=0;i<size;i++)
+    {
+        if(arr[i]!=0)
+        arr[pos++]=arr[i];
+    }
+    while(pos < size)
+    arr[pos++]=0;
+
+
+    printf("output:\n");
+    for(i=0;i<size;i++)
+    printf("%d ",arr[i]);
+    printf("\n");
+}
+int main(void)
+{
+    //int arr[]={1,0,2,0,0,3,4};
+
+    int i,size;
+    printf("Enter array size\n");
+    scanf("%d",&size);
+
+    int arr[size];
+    printf("Enter elements\n");
+    for(i=0;i<size;i++)
+    scanf("%d",&arr[i]);
+
+    //int size = sizeof(arr)/sizeof(int);
+    printf("size is %d\n",size);
+    push_zeros_at_end(arr,size);
+    return EXIT_SUCCESS;
+}
+-------------------------------------------------------------------------
+Toggle n bits from kth bit:
+int main(void)
+{
+    int data,n,k;
+    printf("Enter the data\n");
+    scanf("%d",&data);
+
+    printf("Enter n\n");
+    scanf("%d",&n);
+
+    printf("Enter k\n");
+    scanf("%d",&k);
+
+    int mask= (((1<<n)-1) <<k);
+    printf("Input: %d\n",data);
+    printf("output:%d\n",data^mask);
+
+
+    return EXIT_SUCCESS;
+}
+-------------------------------------------------------------------------
+
+//Precedence issue:
+Power of 2 or not:
+Bug:    printf("%s\n",(data & (data -1) == 0 ) ?"Power of 2" : "Not");
+Fix:    printf("%s\n",( (data & (data -1)) == 0 ) ?"Power of 2" : "Not");
+Issue: In C, == has higher precedence than &.
+-------------------------------------------------------------------------
+//sizeof
+BUG: #define SIZEOF(data) ((&data+1)-(&data)) -> BUG //Subtracting two pointers gives a result in units of the pointed type, not bytes.
+Fix: #define SIZEOF(data) ((char*)(&data+1)-(char*)(&data))
+Issue:  (&data+1) - (&data) will always be 1 (because both are int* or same type), not the size in bytes.
+-------------------------------------------------------------------------
+Implement memcpy:
+void memcopy(void *dest, void *src, unsigned int size)
+{
+	char *p1=(char*)dest;
+	const char *p2=(char*)src;
+	while(size--)
+	{
+		*p1=*p2;
+		p1++;
+		p2++;
+	}
+}
+int main(void)
+{
+/*Input as strings*/
+	char s1[20],s2[20];
+	printf("Enter a string\n");
+	fgets(s1,sizeof(s1),stdin);
+	unsigned int len=strlen(s1);
+	if(s1[len-1]=='\n')
+		s1[len-1]='\0';
+///////////////////////////////
+
+	memcopy(s2,s1,strlen(s1)+1);
+	printf("after memcopy s2=%s\n",s2);
+	return 0;
+}
+------------
+void *memcpy_nvn(void *dest, const void *src, size_t len)
+{
+const unsigned char *s=src;
+unsigned char *d=dest;
+    while(len>0)
+    {
+        *d=*s;
+        d++;
+        s++;
+        len--;
+    }
+    return dest;
+
+}
+
+int main(void)
+{
+char s1[]="asdfg";
+char s2[6];
+
+printf("After memcpy result=%s\n",(char*)memcpy_nvn(s2,s1,6));
+
+//TODO test for arrays, structures, etc
+    return 0;
+}
+-------------------------------------------------------------
+//C program to print Time required to transfer 1KBytes of data through UART at 9600 buad rate.
+#include<stdio.h>
+int main(void)
+{
+    double data_size=1*1024*8; //1KB
+    double baud_rate=9600; //bits per second
+
+    printf("Time =%lf seconds\n", data_size/baud_rate);
+return 0;
+}
+-------------------------------------------------------------------------
+Simple Linux kernel module:
+#include <linux/kernel.h>   // For printk
+#include <linux/module.h>   // Core header for modules
+
+static int nvn_module_entry_func(void)
+{
+    /*
+    Do init operations
+    */
+    printk(KERN_INFO "%s:%s: Module entry",__FILE__,__func__);
+    // OR
+    pr_info("%s:%s: Module entry",__FILE__,__func__);
+
+
+    return 0;
+}
+
+static void nvn_module_exit_func(void)
+{
+    /*
+    Do cleanup operations
+    */
+    printk(KERN_INFO "%s:%s: Exiting the module",__FILE__,__func__);
+    return;
+}
+
+
+MODULE_LICENSE("GPL");
+
+module_init(nvn_module_entry_func);
+module_exit(nvn_module_exit_func);
+
+-------------------------------------------------------------------------
+Simple Linux kernel module to demo spinlock:
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/init.h>
+#include <linux/spinlock.h>
+#include <linux/kthread.h>
+#include <linux/delay.h>
+
+static spinlock_t mylock;
+static int counter;
+static struct task_struct *worker_thread;
+
+static int worker_fn(void *data)
+{
+    while (!kthread_should_stop()) {
+        // critical section
+        spin_lock(&mylock);
+        counter++;
+        spin_unlock(&mylock);
+
+        // simulate doing some work
+        msleep(10);
+    }
+    return 0;
+}
+
+static int __init spinlock_demo_init(void)
+{
+    int ret;
+
+    spin_lock_init(&mylock);
+    counter = 0;
+
+    worker_thread = kthread_run(worker_fn, NULL, "spin_demo_thread");
+    if (IS_ERR(worker_thread)) {
+        ret = PTR_ERR(worker_thread);
+        pr_err("spinlock_demo: failed to create thread (%d)\n", ret);
+        return ret;
+    }
+
+    pr_info("spinlock_demo: module loaded\n");
+    return 0;
+}
+
+static void __exit spinlock_demo_exit(void)
+{
+    if (worker_thread)
+        kthread_stop(worker_thread);
+
+    pr_info("spinlock_demo: module unloaded, final counter = %d\n", counter);
+}
+
+module_init(spinlock_demo_init);
+module_exit(spinlock_demo_exit);
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("NVN");
+MODULE_DESCRIPTION("Simple spinlock demo (works on ARM and x86)");
+
+
+-------------------------------------------------------------------------
+
+Power of 2 or not:
+int main(void)
+{
+    int data;
+    printf("Enter the data\n");
+    scanf("%d",&data);
+
+    printf("%s\n",( data > 0 && (data & (data -1)) == 0 ) ?"Power of 2" : "Not");
+    return 0;
+}
+
+-------------------------------------------------------------------------
+//Write a program to clear the least set bit in a number. 
+#include<stdio.h>
+#define CLEAR_LEAST_SET_BIT(data) ((data)&(data-1))
+int main(void)
+{
+    int data;
+    printf("Enter the data\n");
+    scanf("%d",&data);
+
+    printf("Result=0x%x\n",CLEAR_LEAST_SET_BIT(data));
+    return 0;
+}
+-------------------------------------------------------------------------
+
+int set_bit(int data,int bit)
+{
+    return (data | (1<<bit));
+}
+
+int main()
+{
+    int n, bit;
+    printf("Enter the data\n");
+    scanf("%d",&n);
+
+    printf("Enterr the bit number\n");
+    scanf("%d",&bit);
+
+    //TODO: bit number validation ( bit >0 & bit <8*sizeof(int) )
+
+    int result = set_bit(n,bit);
+    printf("Result after setting %dth bit=%d (0x%x)\n",bit,result,result);
+
+    return 0;
+}
+
+-------------------------------------------------------------------------
+
+Simple Mutex , semphore, spinlock internal implementations:
+TODO: Identify if there are any issues.
+
+#ifndef XCHG_H
+#define XCHG_H
+
+#include <stdint.h>
+
+/*
+ * Cross-platform atomic exchange:
+ *    old = xchg(addr, newval);
+ *
+ * Implemented for:
+ *   - x86 / x86_64
+ *   - ARMv7   (ldrex/strex)
+ *   - ARM64   (ldaxr/stlxr)
+ *   - RISC-V  (amoswap)
+ */
+
+static inline int xchg(volatile int *addr, int newval)
+{
+    int old;
+
+#if defined(__x86_64__) || defined(__i386__)
+    /**************  X86 / X86_64  **************/
+    __asm__ volatile(
+        "xchg %0, %1"
+        : "=r"(old), "+m"(*addr)
+        : "0"(newval)
+        : "memory"
+    );
+
+#elif defined(__aarch64__)
+    /**************  ARM64 / AARCH64  **************/
+    int tmp;
+    __asm__ volatile(
+        "1: ldaxr   %w0, [%2]\n"
+        "   stlxr   %w1, %w3, [%2]\n"
+        "   cbnz    %w1, 1b\n"
+        : "=&r"(old), "=&r"(tmp)
+        : "r"(addr), "r"(newval)
+        : "memory"
+    );
+
+#elif defined(__arm__)
+    /**************  ARMv7 (32-bit ARM) **************/
+    int tmp;
+    __asm__ volatile(
+        "1: ldrex   %0, [%2]\n"
+        "   strex   %1, %3, [%2]\n"
+        "   teq     %1, #0\n"
+        "   bne     1b\n"
+        : "=&r"(old), "=&r"(tmp)
+        : "r"(addr), "r"(newval)
+        : "memory"
+    );
+
+#elif defined(__riscv)
+    /**************  RISC-V (RV32/RV64) **************/
+    __asm__ volatile(
+        "amoswap.w.aq %0, %2, %1"
+        : "=r"(old), "+A"(*addr)
+        : "r"(newval)
+    );
+
+#else
+#error "xchg() not implemented for this architecture"
+#endif
+
+    return old;
+}
+
+#endif /* XCHG_H */
+
+
+/*****************  MOCK sleep & wakeup  *****************/
+// These are placeholders — in OS code, these block/wake threads.
+void sleep(void);
+void wakeup(void);
+
+
+/*********************************************************
+ *                     MUTEX (blocking)
+ *********************************************************/
+
+typedef struct {
+    volatile int locked;   // 0 = free, 1 = locked
+} mutex_t;
+
+void mutex_init(mutex_t *m)
+{
+    m->locked = 0;
+}
+
+void mutex_lock(mutex_t *m)
+{
+    while (1) {
+        if (xchg(&m->locked, 1) == 0)  // acquired
+            break;
+        sleep();                       // block instead of spinning
+    }
+}
+
+void mutex_unlock(mutex_t *m)
+{
+    m->locked = 0;
+    wakeup();       // wake sleeping waiters
+}
+
+
+/*********************************************************
+ *               SPINLOCK (pure spin + no sleep)
+ *********************************************************/
+
+typedef struct {
+    volatile int locked;  // 0 = free, 1 = locked
+} spinlock_t;
+
+void spinlock_init(spinlock_t *s)
+{
+    s->locked = 0;
+}
+
+void spin_lock(spinlock_t *s)
+{
+    while (xchg(&s->locked, 1) == 1) {
+        // busy-wait (spin)
+    }
+}
+
+void spin_unlock(spinlock_t *s)
+{
+    s->locked = 0;
+}
+
+
+/*********************************************************
+ *            BINARY SEMAPHORE (sleep + wakeup)
+ *********************************************************/
+
+typedef struct {
+    volatile int count;   // 0 or 1 for binary semaphore
+} binsem_t;
+
+void binsem_init(binsem_t *s, int init_val)
+{
+    s->count = init_val;   // should be 0 or 1
+}
+
+void binsem_wait(binsem_t *s)
+{
+    while (1) {
+        // Attempt atomic decrement
+        if (xchg(&s->count, 0) == 1) {
+            // successfully took semaphore
+            break;
+        }
+        sleep();  // wait until semaphore becomes available
+    }
+}
+
+void binsem_signal(binsem_t *s)
+{
+    s->count = 1;
+    wakeup();  // wake waiting threads
+}
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+
