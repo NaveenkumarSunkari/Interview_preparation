@@ -1,0 +1,41 @@
+Linux threads.
+1. User threads
+2. Kernel threads
+
+
+Linux kernel point of view:
+- In kernel point of view everything is task, whether it is process or thread in userspace. (task_structs for each process and thread).
+- TID's are unique to each task, but PID's can be same for multiple threads( for example if a process creates 2 threads -> those 2 threads have same pid as its parent process).
+
+
+Process vs theads:
+Process:
+Every process has
+- its own address space
+
+Threads:
+Threads
+- share address space (data, heap, text, open files)
+- have different stack.
+
+
+-------------------------------------
+APIs:
+pthread_create:
+
+pthread_exit: 
+- Can be used in parent process to wait untill all threads associated with that processs terminates.
+- If there is any code available after pthread_exit -> no use, since the process will be exited with that call.
+pthread_join: 
+- Can be used in parent process to wait untill particular thread associated with that processs terminates.
+- It is useful if we want to wait until particul thread completes its action and then that data can be used in main process.
+pthread_kill:
+- 
+
+--------------------------------------------------------------------------------
+Coding rules:
+Dos:
+- Use pthread_exit in parent process to wait until all threads terminate. It is usefule if main process has less work.
+
+
+Donts:
