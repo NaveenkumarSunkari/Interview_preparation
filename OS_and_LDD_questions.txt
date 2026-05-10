@@ -1,0 +1,36 @@
+//Driver Basics
+- How driver loads? who calls probe?
+- How driver will be probed?
+- Explain typical linux device driver code. how to implement new driver?
+- What is the typical initialization should be written in probe? Can we use kthread in probe?
+
+//Driver Development (Peripheral & Multimedia)
+- How to write a driver for i2c peripheral (ex: temperature sensor)?
+- If a new camera device is given, how to configure it and how to write peripheral driver for it?
+- Display drivers?
+- Multimedia drivers.
+
+//Driver Verification & Debugging
+- Driver Debugging methods.
+- After loading the i2c driver, by how we can confirm driver is loaded properly? how to verify?
+- How to debug linux kernel issues?
+
+//Kernel Modules
+- Write a kernel module.
+- Write a kernel module to read I2C EEPROM or to read data from Temperature sensor.
+- How out-of-tree modules compiled in yocto?
+- How to choose driver as loadable module.
+- How to add a new driver to vendor kernel in Android GKI concept? (clues: add driver source, add driver_name.ko ,etc)
+
+//Device Tree & Configuration
+- How to configure interrupt?
+- How to configure pinctrl in devicetree.
+
+//Kernel Internals
+- How linked lists are implemented in Linux kernel? what is the base node?
+- procfs vs sysfs?
+- List few attributes of procfs.
+- Explain interrupts in linux.
+- Explain workqueues in linux.
+- What happens in the kernel, if we perform operations on a char driver in userspace. Explain the flow from userspace to kernel.
+- How kernel code can run? (either upon system call or upon getting interrupts).
