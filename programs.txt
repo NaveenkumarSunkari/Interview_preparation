@@ -1,0 +1,69 @@
+//Bit manipulation
+- Write C program to find number of set bits
+- Program to count number of set bits in int
+- C program to swap adjacent bits (Ex: 0xAA -> 0x55)
+- C program to toggle n bits from kth bit. Also prepare a macro
+- C program to toggle nth bit in 8-bit data
+- C program to check a particular bit set or not
+- C program to find a number is power of 2 or not
+- C program to check if a number is power of 2 or not
+- Write a program to clear the set bit in a number (assume only 1 bit set)
+- Set bit 3 of a; clear bit 3 of a without modifying other bits
+- Set bits i..j of N equal to M (bit substring insertion)
+- Programming for checking Endianess
+- int data = 0x12345678 -> 0x78563412 without bitwise (byte reverse)
+- Highest of 3 numbers using macro
+- Check whether a given number is even or odd
+
+//Strings
+- Write C program to reverse a string
+- Write C program to reverse a string (user input variant)
+- C program to reverse a number
+- C program to implement strlen; extend it to reverse a string
+- Write C program to implement user-defined sizeof; explain how it works
+- Implement your own memcpy
+- Program to convert "Abc123" -> "cbA123"
+- Program to reverse string
+- C program to check if the string S1 is reverse of S2 or not
+- Find the second non-repeating character in "abbadababaeeec"
+- Check whether a given string is a palindrome
+- Program that prints 1..100 with Sponge/Bob/SpongeBob rules
+
+//Arrays
+- C program to push 0s at end, order should remain same (stable compaction)
+- Program to find most frequent element in an int array
+- Program to toggle a particular bit at nth position (array context if applicable)
+- Print all unique numbers from a given list
+- Remove duplicates from a sorted array and print updated array
+- For each element, find subarrays (pairs of previous elements) whose sum equals it
+
+//Pointers and memory
+- Write a program to find size of variable without using sizeof operator
+- Write simple illustration of malloc usage for char and int
+- Can we write a program without main function?
+- How to include a header file based on condition if it is available or not (include guards)
+- Write a C program to replace 0s in a given integer with 8
+- Declare a function pointer for a function that takes two function pointers as arguments and returns an int
+- Assign 2D array to pointer and increment pointer. Then what happens?
+
+//Linked lists and stacks
+- Given a linked list, rearrange nodes to be sorted in increasing order
+- Implement stack using SLL; push and pop O(1)
+- Reverse a linked list by group of K
+- Print all permutations of a given string (can be linked with recursion/backtracking)
+- Remove alternate nodes in a singly linked list
+
+//Kernel and drivers
+- Write a kernel module
+- Write a kernel module to read I2C EEPROM or read from temperature sensor
+
+//UART and timing
+- C program to print time required to transfer 1 KBytes over UART at 9600 baud rate
+
+//Processes and concurrency
+-  Count prime numbers in a range (CLI arguments); print count
+- Count primes in a range with fork; child returns count via exit code; parent prints
+- Multithreaded C program that prints characters alternately using two threads
+
+//Swapping and arrays (utility)
+- Function to swap two variables; call from main; use same swap for array element; understand array memory size/layout (sizeof implications)
