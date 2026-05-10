@@ -1,0 +1,316 @@
+
+Theory:
+1. Embedded linux boot flow
+2. Who power-up soc( pmic ?)
+3. what is the job of primary boot-loader ?
+4. u-boot environment variable to be used for booting linux kernel ?
+5. u-boot environment variable to be used for "root=" ?
+6. what are the peripherals initialized by u-boot/bootloader and why?
+6. Process of booting linux kernel ?
+7. Why linux kernel can not use u-boot initialized peripherals ? 
+8. What is devicetree ?
+9. If you have got 2 custom boards, how dts can be used ?
+10. If you have got a new custom board -> how you will bringup? which peripherels should be bringup first or order to be checked?
+11. Who initializes the serial console? u-boot or before ? Then does linux kernel initializes serial console again or not required ?
+12. How driver loads? who calls probe?
+13. Worked on any particular driver?
+14. Knowledge on protocols?
+
+Process vs thread
+what is deadlock ?
+How to communication bw userspace and kernelspace ?
+
+
+c memory layout?
+what is void pointer?
+what is dangling pointer?
+
+Embedded boot flow? After boot-rom, how boot mode will be selected.
+What is devicetree?
+Important devicetree parameters for bringup of camera device which uses i2c.
+What are the tools used for i2c?
+
+How would you bringup a custom board if there are no console logs even from bootloader? how to debug RAM related issues after BootROM stage ?
+OS concepts?
+Explain about interrupts.
+Locking mechanisms. Explain with examples/scenarios.
+Debugging methods.
+How to debug a kernel crash which caused due to wrong parameters for a function?
+
+
+How to write a driver for i2c peripheral (ex:temperature sensor)?
+Explain SPI.
+Multimedia drivers.
+
+Porting issues and how did debug?
+Any experience on particular driver?
+What all the interfaces available in QC project?
+QC 8155 vs 8195 soc.
+Any work on Mainline kernel?
+What was the kernel verification automation done? Explain it.
+Any work experience on Android project?
+
+-----
+
+Android:
+What is enforce mode and permissive mode
+How to resolve selinux errors?
+How to configure adb via ethernet ?
+How pinmux configured?
+
+QNX:
+How applications start running? Via SLM and from .build , .build.tmpl configs
+QNX Boot procedure.
+How hypervisor runs?
+hypervisor configurations.
+How Guest VM communicates with host QNX OS?
+How pinmux is configured? ( QUP and )
+How to resolve permission issues for an application running on qnx? (secpol errors and which files need to be modified to resolve it).
+
+Automotive:
+How other ECUs communicate with Infotainment system?( Explain CAN communication in a vehicle)
+How rear-camera uses QNX display instead of Guest(Android/Linux) display within 2seconds of ignition-ON.
+
+----------
+
+Linux boot sequence.
+Process vs Thread?
+what is race condition and how to avoid it? Synchronization mechanisms.
+Synchronization mechanisms for Process.
+What is scheduling in linux? What are the states available?
+Userspace vs kernel space ? 
+What is system call? System call flow? Can kernel access userspace buffer? why copy_from_user is required?
+how to check if a binary is compiled for which architecture?
+What is VFS?
+What is inode?
+what is hypervisor?
+what is xml file in qnx?
+
+
+Project:
+What is the yocto build version used?
+Yocto build commands.
+Take one bug and explain. How to debug kernel panic?
+How out-of-tree modules compiled in yocto?
+What is GKI in android.
+How to choose driver as loadable module.
+How to create a patch? how to apply patches?
+How to resolve merge conflicts using git?
+What is lts kernel?
+
+------------------------
+
+Qualcomm SA8155 Boot process.
+How to debug crash which happens on booting.
+How to enable a driver in common kernel using bazel (Android GKI)?
+What is bazel?
+How to add a new driver to vendor kernel in Android GKI concept? (clues: add driver source, add driver_name.ko ,etc)
+Write an example device tree node for I2C ACP(Apple Co Pro)chip.
+How to verify i2c ACP(Apple Co Pro)chip? Which i2c-tools can be used to verify ?
+After loading the i2c driver, by how we can confirm driver is loaded properly ? how to verify?
+Any experience with SPI or UART or other drivers?
+
+-----------
+
+How to collect RAMPDUMP in QC projects?
+How to debug a crash? What all the logs should be used?
+What is Stack and Heap?
+What all the issues with Heap usage? how to check and debug?
+What is ioctl and how to use?
+Explain i2c and SPI?
+How to identify i2c device?
+Any experience with Shell script and python?
+
+Explain linux boot process.
+vmalloc vs kmalloc.
+What is workqueue?
+what is kworker thread?
+What is devicetree?
+How to configure pinctrl in devicetree.
+How linked lists are implemented in Linux kernel? what is the base node?
+How driver will be probed?
+Explain typical linux device driver code. how to implement new driver?
+What is the typical initialization should be written in probe? Can we use kthread in probe?
+procfs vs sysfs?
+list few attributes of procfs.
+
+Linux:
+Explain linux boot process.
+vmalloc vs kmalloc.
+What is workqueue?
+what is kworker thread?
+What is devicetree?
+How to configure pinctrl in devicetree.
+How linked lists are implemented in Linux kernel? what is the base node?
+How driver will be probed?
+Explain typical linux device driver code. how to implement new driver?
+What is the typical initialization should be written in probe? Can we use kthread in probe?
+procfs vs sysfs?
+list few attributes of procfs.
+
+
+
+Android:
+What is abi in Android GKI? which abi file has been used in  zrtf5c
+How to export api/function_name/symbol to vendor kernel from common kernel if it is not exported? Is there any way apart from upstreaming?
+
+C:
+Explain about storage classes. What stack stores? where initialized static vars stored?
+Write one linked list node.
+Explain malloc. write memory allocation for character ptr, for integer of 10 size. how to avoid memory leak?
+What is structure padding and how to avoid it ?
+
+OS concepts:
+Process vs thread.
+Userspaces vs kernelspace. How to interact with userspace?
+What is ISR?
+Mutex vs semaphore vs spinlock? Explain major differences.
+
+
+HW:
+Explain I2C and SPI. 
+Addressing is i2c. which bit represents r/w bit.
+
+
+-------------------------
+
+
+How to debug issues in bringup?
+Explain some bugs and how debugged.
+Explain i2c, SPI and CAN protocols.
+Explain Interupts in linux
+Explain workqueues in linux
+Explain yocto build system.
+What all the build systems used.
+
+---------------------
+
+1. What happens if mutex is used in interrupt context? Why mutex is not allowed? Generally if mutex is blocked in process context, then another process pre-emption will be done by scheduler right? But why in interrupt context, if it is blocked it is a problem? Generally if spinlock can be used, it keeps the isr busy right? Deepdive it.
+2. What is deadlock?
+3. Assume if we have designed a system with bits per byte differently like 9 bits per byte system. How to identify it? how to verify with c program?
+4. Generally Bootloader works with physical memory and linux kernel works with virtual memory right? Then Linux kernel initializes virual memory after start_kernel right? Then right after control goes to linux kernel from bootloader, how it handles virtual memory? Deepdive it.
+5. What is devicetree and explain its purpose.
+
+--------------
+
+What happens in the kernel, if we perform operations on a char driver in userspace. Explain the flow from userspace to kernel.
+Linux kernel internals?
+How to debug linux kernel issues?
+
+----------------
+
+Explain Android booting sequence.
+Who initializes DRAM?( BOOTROM or PBL or SBL) ? Does chipvendor bringup RAM or OEM?
+How Zygote and Android Runtime(ART) starts?
+How to communicate with kernel?
+How kernel code can run? ( either upon system call or upon getting interrupts).
+Softirq vs tasklet?
+What is process context and interrupt context?
+System call flow?
+How does system call know which filesystem driver it should call?
+What is virtual memory? Pagein, pageout, etc.
+What is IPC? Why to use IPC mechanisms?
+PIPE vs FIFO?
+Which IPC mechanism is better? Which is faster ? Like which communicates through userspace and which communicates using kernelspace?
+storage classes.
+
+-----------------
+
+Process vs thread
+what is deadlock ?
+How to communication bw userspace and kernelspace ?
+
+-----------------
+
+1. Android kernel vs Ubuntu kernel? what are the major differences?
+2. Android-12 vs Android-14 features? linux kernel features.
+3. How to create a new kernel? What are the factors to be considered?
+4. Explain about kernel architecture.
+5. what is firmware? kernel vs firmware?
+6. What is context switch?
+7. Userspace vs kernelspace?
+8. Why different file systems? differences and features?
+9. What is semaphore?
+10. What is spinlock and how it works?
+11. how to check kernel version?
+12. What is DMA? how DMA works? what is the benifit for processor?
+13. What is ringbuffer and how to implement it?
+14. What is Yocto?
+15. Types of kernel modules?
+
+1. How DMA works?
+2. How interrupt works?
+3. How to debug if there is an issue in board bringup, if there are no logs available.
+4. How to debug if a target resets every 2 days? Can this happen? how to debug memory related issues?
+5. How to debug deadlock issues?
+6. What is context switch?
+7. What is RCU?
+8. what is the complex code written by you?
+9. Any experience on handling a complete project?
+
+---------------
+
+Explain linux boot process
+what happens if there is no rootfs parsed to kernel? how initramfs can help here?
+what is devicetree? explain how it works.
+platform driver vs char driver?
+what is userspace and kernelspace? why to differentiate?
+how linux handle interrupts?
+how to configure DMA in linux? What is DMA and how it works?
+how to do board bringup?
+explain i2c and spi. how i2c starts its communication? how a particular master can get the bus? i2c clock stretching?
+does i2c and spi support multimaster?
+what is mutex and semaphore? if mutex uses lock then what semaphore uses?
+what is race condition?
+what is kernel panic? what happens after that? why panic can occure?
+what is mmap?
+what is yocto? explain yocto layers? what is meta layer? 
+
+-------
+
+Explain the boot flow.
+Explain the Qualcomm boot flow.
+Explain QNX boot flow?
+How QNX hypervisor works?
+what is userspace and kernel space?
+how userspace can interact with kernelspace?
+What is secpol?
+What is yocto and its layers?
+Semphore vs mutex?
+how userspace app can access kernel memory or device memory?
+How bootloader parses dtb to kernel?
+
+-----------
+
+
+Explain qnx boot flow.
+what is pinmux and how to configure it?
+what is secpol?
+How hypervisor works?
+What is Yocto? explain it.
+
+Explain boot flow.
+If boot loader hangs at "Hit enter any key" stage, how to debug?
+How to do board bringup?
+How to do peripheral bringup?
+If Android boots to "recovery" mode, how to recover it?
+How to debug deadlocks? What is RCU?
+How QNX hypervisor works? Can we configure cpus separately for host and guest?
+How display or camera works? Any experience on those application development?
+How AutoSAR communicates with A core?
+How ipcf on NXP works internally? 
+Explain the complete boot flow of NXP-S32G from M core to A core.
+
+--------------
+
+Why QNX is micro kernel? monolithic vs micro kernel.
+Which scheduling policy is used by QNX?
+What is priority inversion? what is the solution from qnx (explain priority inheritance)?
+How QNX hypervisor works?
+How interrupt works?
+Explain DMA?
+How to integrate a driver to yocto build? How to debug if it does not work.
+Explain board bringup and how to resolve issues?
+mutex vs semaphore.
+
+
