@@ -1,0 +1,6 @@
+1. Two trains are on the same track a distance 100 km apart heading towards one another, each at a speed of 50 km/h. A fly starting out at the front of one train, flies towards the other at a speed of 75 km/h. Upon reaching the other train, the fly turns around and continues towards the first train.
+How many kilometers does the fly travel before getting squashed in the collision of the two trains?
+
+2. There are total 9 balls, among them 8 are identical and one is heavier. What are the minimum number of weights required to find out the ball with heavier weight?
+
+3.	Four people are crossing a bridge at night, so they all need a torch—but they just have one that only lasts 15 minutes. Ram can cross in one minute, vinod in two minutes, Raj in five minutes and Anna in eight minutes. No more than two people can cross at a time; and when two cross, they have to go at the slower person’s pace. How do they get across in 15 minutes
